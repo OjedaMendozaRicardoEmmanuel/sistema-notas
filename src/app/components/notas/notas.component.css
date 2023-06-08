@@ -1,0 +1,57 @@
+.barra{
+  width: 5%;
+}
+
+.notas-div{
+  width: 95%;
+}
+
+.is-focusable {
+  cursor: pointer;
+}
+
+.is-focusable:focus-visible {
+  outline: none;
+  background-color: #efefef;
+  box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+}
+
+.custom-button-size {
+  width: 80px;
+  height: 80px;
+}
+
+.nota-1{
+  color: #198754;
+  border: 2px solid #198754;
+}
+
+.nota-2{
+  color: #0d6efd;
+  border: 2px solid #0d6efd;
+}
+
+.nota-3{
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.nota-txt-1{
+  color: #198754;
+}
+
+.nota-txt-2{
+  color: #0d6efd;
+}
+
+.nota-txt-3{
+  color: #dc3545;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: 25% 25% 25% 25%;
+  position: relative;
+}
+

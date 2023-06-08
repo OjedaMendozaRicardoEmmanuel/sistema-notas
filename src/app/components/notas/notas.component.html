@@ -1,0 +1,87 @@
+<div class="fondo vh-100 w-100 d-flex p-2">
+  <div class="h-100 d-flex flex-column justify-content-center align-items-center card barra">
+    <p-button styleClass="p-button-rounded p-button-success" icon="pi pi-plus" class="m-2" pTooltip="Nueva Nota Verde"
+      (click)="btnVerde()"></p-button>
+    <p-button styleClass="p-button-rounded p-button-info" icon="pi pi-plus" class="m-2" pTooltip="Nueva Nota Azul"
+      (click)="btnAzul()"></p-button>
+    <p-button styleClass="p-button-rounded p-button-danger" icon="pi pi-plus" class="m-2" pTooltip="Nueva Nota Roja"
+      (click)="btnRojo()"></p-button>
+    <p-button styleClass="p-button-rounded p-button-help" icon="pi pi-sign-out" class="m-2" pTooltip="Salir"
+      (click)="logout()"></p-button>
+  </div>
+  <div class="h-100 notas-div ms-2 card wrapper">
+    <div *ngFor="let item of notas" class="w-100 h-100 p-2">
+      <mat-card class="nota-{{item.tipo}} w-100 h-100">
+        <mat-card-header class="mb-2 is-focusable" (click)="abrirNota(item)">
+          <mat-card-title-group>
+            <mat-card-subtitle class="nota-txt-{{item.tipo}}"><em>{{obtenerFechaF(item.fecha_hora)}}</em></mat-card-subtitle>
+            <mat-card-title class="fs-2">{{item.titulo}}</mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content class="fs-4 mb-2 is-focusable" (click)="abrirNota(item)">
+          {{item.descripcion}}
+        </mat-card-content>
+        <mat-card-actions align="end" class="mt-auto">
+          <button mat-icon-button color="warn" class="nota-txt-{{item.tipo}}" (click)="editarDesdeCard(item)" tooltipPosition="bottom" pTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" class="nota-txt-{{item.tipo}}" (click)="eliminarNota(item.id)" tooltipPosition="bottom" pTooltip="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <button mat-fab pTooltip="Ver mapa" color="primary" aria-label="Ver mapa"
+      class="position-absolute bottom-0 end-0 m-4 custom-button-size" (click)="abrirMapa()">
+      <mat-icon>public</mat-icon>
+    </button>
+  </div>
+  <p-dialog [(visible)]="agregarNota" [style]="{width: '30%', height: '40%'}" header="Nota" [modal]="true"
+    class="p-fluid">
+    <form [formGroup]="form" class="d-flex flex-column">
+      <mat-form-field class="h-25">
+        <mat-label>Titulo</mat-label>
+        <input matInput placeholder="Mi Nota" formControlName="titulo">
+      </mat-form-field>
+      <mat-form-field class="h-75">
+        <mat-label>Descripcion</mat-label>
+        <textarea matInput placeholder="Ex. Mi nota descripcion..." formControlName="descripcion"></textarea>
+      </mat-form-field>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" (click)="guardarNota()"></button>
+    </form>
+  </p-dialog>
+  <p-dialog [(visible)]="verNota" [style]="{width: '30%', height: '60%'}" header="Nota" [modal]="true" class="p-fluid">
+    <mat-card class="example-card is-focusable nota-{{nota.tipo}} w-100 h-100" (click)="abrirNota(nota)"
+      *ngIf="!editarNota">
+      <div class="d-flex flex-row justify-content-end">
+        <p-button label="Editar" icon="pi pi-file-edit" styleClass="p-button-warning" class="m-2"
+          (onClick)="editaNota()"></p-button>
+        <p-button label="Eliminar" icon="pi pi-times" styleClass="p-button-danger" class="m-2"
+          (onClick)="eliminarNota(nota.id)"></p-button>
+      </div>
+      <mat-card-header class="mb-2">
+        <mat-card-title-group>
+          <mat-card-subtitle>{{obtenerFechaF(nota.fecha_hora)}}</mat-card-subtitle>
+          <mat-card-title class="fs-2">{{nota.titulo}}</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content class="fs-4">
+        {{nota.descripcion}}
+      </mat-card-content>
+    </mat-card>
+    <form [formGroup]="form" class="d-flex flex-column" *ngIf="editarNota">
+      <mat-form-field class="h-25">
+        <mat-label>Titulo</mat-label>
+        <input matInput placeholder="Mi Nota" formControlName="titulo">
+      </mat-form-field>
+      <mat-form-field class="h-75">
+        <mat-label>Descripcion</mat-label>
+        <textarea matInput placeholder="Ex. Mi nota descripcion..." formControlName="descripcion"></textarea>
+      </mat-form-field>
+      <button pButton pRipple label="Guardar" icon="pi pi-check" (click)="updateNota(nota)"></button>
+    </form>
+  </p-dialog>
+  <p-dialog [(visible)]="verMapa" [style]="{width: '70%', height: '80%'}" header="Mapa de notas" [modal]="true" class="p-fluid">
+    <!-- <app-mapa></app-mapa> -->
+  </p-dialog>
+</div>

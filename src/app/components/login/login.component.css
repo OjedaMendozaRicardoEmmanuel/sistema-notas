@@ -1,0 +1,19 @@
+.container {
+  background-color: #3f51b5;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+}
+.full-width {
+  width: 100%;
+}
+.login-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+}
+.login-card form {
+  padding: 20px;
+}
